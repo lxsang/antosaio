@@ -16,16 +16,16 @@ to docker and ready to use:
 
 ```sh
 wget https://github.com/lxsang/antosaio/raw/master/dist/antosaio.tar
-sudo docker load < antosaoi.tar
+sudo docker load < antosaio.tar
 ```
 
 The image can be run in a container using
 
 ```sh
-sudo docker run -p 8080:80 -it antosaoi
+sudo docker run -p 8080:80 -it antosaio
 ```
 
-Here we map the host port 8080 to the port 80 on the `antosaoi` container.
+Here we map the host port 8080 to the port 80 on the `antosaio` container.
 From the host browser, the VDE can be accessed via
 
 ```
