@@ -15,7 +15,7 @@ A prebuilt image can be found in `dist`, the image can be imported
 to docker and ready to use:
 
 ```sh
-wget 
+wget https://github.com/lxsang/antosaio/raw/master/dist/antosaoi.tar
 sudo docker load < antosaoi.tar
 ```
 
