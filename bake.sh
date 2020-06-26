@@ -25,12 +25,12 @@ git clone --depth 1 https://github.com/lxsang/antos
 cd ../
 
 
-docker build -t antosaoi .
+docker build -t antosaio .
 
 if [ -d "download" ]; then
     rm -rf download
 fi
 
 mkdir -p dist
-docker save antosaoi > dist/antosaoi.tar
+docker save antosaio > dist/antosaio.tar
 # sudo docker run -p 8080:80 -it antosaoi /bin/sh
