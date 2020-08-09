@@ -4,6 +4,11 @@ COPY download /download
 RUN cd /download/antd-1.0.4b && ./configure --prefix=/usr/ --enable-debug=yes && make && make install
 RUN cd /download/lua-0.5.2b && ./configure --prefix=/opt/www --enable-debug=yes && make && make install
 RUN cd /download/wterm-1.0.0b && ./configure --prefix=/opt/www --enable-debug=yes && make && make install
+
+RUN cd /download/tunnel-0.1.0b && ./configure --prefix=/opt/www --enable-debug=yes && make && make install
+RUN cd /download/antd-publishers-0.1.0a && ./configure --prefix=/opt/www --enable-debug=yes && make && make install
+
+
 RUN mkdir -p /opt/www/htdocs
 RUN cd /download/antd-web-apps && BUILDDIR=/opt/www/htdocs PROJS=os make
 RUN rm /opt/www/htdocs/index.ls
