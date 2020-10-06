@@ -1,7 +1,7 @@
 FROM alpine AS build-env
 RUN apk add build-base make sqlite-dev zlib-dev readline-dev nodejs npm
 COPY download /download
-RUN cd /download/antd-1.0.4b && ./configure --prefix=/usr/ --enable-debug=yes && make && make install
+RUN cd /download/antd-1.0.6b && ./configure --prefix=/usr/ --enable-debug=yes && make && make install
 RUN cd /download/lua-0.5.2b && ./configure --prefix=/opt/www --enable-debug=yes && make && make install
 RUN cd /download/wterm-1.0.0b && ./configure --prefix=/opt/www --enable-debug=yes && make && make install
 
