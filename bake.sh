@@ -7,9 +7,9 @@ fi
 mkdir download
 cd download || (echo "Unable to change directory" && exit 1)
 
-wget https://github.com/lxsang/ant-http/raw/master/dist/antd-1.0.4b.tar.gz
-tar xvzf antd-1.0.4b.tar.gz
-rm antd-1.0.4b.tar.gz
+wget https://github.com/lxsang/ant-http/raw/master/dist/antd-1.0.6b.tar.gz
+tar xvzf antd-1.0.6b.tar.gz
+rm antd-1.0.6b.tar.gz
 
 wget https://github.com/lxsang/antd-lua-plugin/raw/master/dist/lua-0.5.2b.tar.gz
 tar xvzf lua-0.5.2b.tar.gz
