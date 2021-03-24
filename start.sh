@@ -1,5 +1,5 @@
 #! /bin/sh
-ln -sf /app/home "/home/$ANTOS_USER"
+[ ! -e "/home/$ANTOS_USER" ] && ln -sf /app/home "/home/$ANTOS_USER"
 adduser --home "/home/$ANTOS_USER" --disabled-password --gecos "" "$ANTOS_USER"
 echo -e "$ANTOS_PASSWORD\n$ANTOS_PASSWORD" | passwd "$ANTOS_USER"
 # start antd-tunnel service
