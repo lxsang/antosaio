@@ -25,15 +25,15 @@ The image can be run in a container using
 
 # app dir that will be mounted to the container
 # the server configuration is stored in this location
-mkdir -p /tmp/app/home
+mkdir -p /tmp/app/{home,tmp,database}
 
 # create the server configuration
 cat << EOF > /tmp/app/antd_config.ini
 [SERVER]
 plugins=/opt/www/lib/
 plugins_ext=.so
-database=/opt/www/database/
-tmpdir=/opt/www/tmp/
+database=/app/database/
+tmpdir=/app/tmp/
 maxcon=200
 backlog=5000
 workers = 4
