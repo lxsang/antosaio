@@ -18,6 +18,7 @@ FROM alpine:3.9
 RUN apk add --no-cache sqlite-dev zlib readline openssl curl
 
 COPY start.sh /start.sh
+RUN chmod 700 /start.sh
 COPY --from=build-env /usr/bin/antd /usr/bin/antd
 COPY --from=build-env /usr/lib/libantd* /usr/lib/
 COPY --from=build-env /opt/www /opt/www
