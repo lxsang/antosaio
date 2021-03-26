@@ -8,18 +8,12 @@ out-of-the-box working AntOS system:
 - AntOS server side API
 - AntOS client side API
 
+The docker images available at: [https://hub.docker.com/r/xsangle/antosaio/](https://hub.docker.com/r/xsangle/antosaio/)
+
 ## How it works ?
 The following manual requires docker to be installed on the host system.
 
-A prebuilt image can be found in `dist`, the image can be imported
-to docker and ready to use:
-
-```sh
-wget https://github.com/lxsang/antosaio/raw/master/dist/antosaio.tar
-sudo docker load < antosaio.tar
-```
-
-The image can be run in a container using
+The image can be run in a container with the following steps
 
 ```sh
 
@@ -28,12 +22,12 @@ The image can be run in a container using
 mkdir -p /tmp/app/{home,tmp,database}
 
 # create the server configuration
-cat << EOF > /tmp/app/antd_config.ini
+cat << EOF > /tmp/app/antd-config.ini
 [SERVER]
 plugins=/opt/www/lib/
 plugins_ext=.so
-database=/app/database/
-tmpdir=/app/tmp/
+database=/app/data/database/
+tmpdir=/app/data/tmp/
 maxcon=200
 backlog=5000
 workers = 4
@@ -80,23 +74,39 @@ audio/mpeg=mp3,mpeg
 lua = lua
 EOF
 
+# run the container
+
 docker run \
     -p 8080:80 \
     --mount type=bind,source=/tmp/app,target=/app \
     -e ANTOS_USER=demo \
     -e ANTOS_PASSWORD=demo \
-    -it antosaio
+    -it xsangle/antosaio:latest
 ```
 
-Here we map the host port 8080 to the port 80 on the `antosaio` container.
 From the host browser, the VDE can be accessed via
 
 ```
 http://localhost:8080
 ```
 
-### Build your own image
-It is really simple to build your own AntOS docker image:
+### Build the image
+
+The build support support multi-arch build with docker **buildx** plugin. Instruction to install buildx can be found here: [# https://github.com/docker/buildx#installing
+](https://github.com/docker/buildx#installing
+).
+
+The following architectures are supported: armv7, amd64 and arm64.
+
+After installing the plugin, execute the following commands before running the build script:
+
+```sh
+docker buildx create --use
+# Register Arm executables to run on x64 machines
+docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64 
+```
+
+Clone the repository and run the build script:
 
 ```sh
 git clone --depth 1 https://github.com/lxsang/antosaio
@@ -104,5 +114,3 @@ cd antosaio
 chmod +x bake.sh
 sudo ./bake.sh
 ```
-
-The generated image can be found in `dist`, and will be loaded automatically by docker

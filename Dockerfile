@@ -1,4 +1,5 @@
-FROM alpine:3.9 AS build-env
+FROM  alpine:3.9 AS build-env
+
 RUN apk add build-base make sqlite-dev zlib-dev readline-dev nodejs npm openssl-dev
 COPY download /download
 RUN cd /download/antd-1.0.6b && ./configure --prefix=/usr/  && make && make install
