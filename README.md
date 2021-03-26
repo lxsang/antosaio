@@ -112,5 +112,5 @@ Clone the repository and run the build script:
 git clone --depth 1 https://github.com/lxsang/antosaio
 cd antosaio
 chmod +x bake.sh
-sudo ./bake.sh
+./bake.sh
 ```
