@@ -17,7 +17,7 @@ RUN npm config set strict-ssl false
 RUN cd /download/antos && npm install terser uglifycss typescript -g && npm install @types/jquery && BUILDDIR=/opt/www/htdocs/os make release
 
 FROM  ubuntu:focal AS deploy-env
-RUN apt-get update && apt-get --yes --no-install-recommends install libsqlite3-0 zlib1g libreadline8 libssl1.1
+RUN apt-get update && apt-get --yes --no-install-recommends install libsqlite3-0 zlib1g libreadline8 libssl1.1 wget
 RUN apt clean &&  rm -rf /var/lib/apt/lists/*
 RUN mkdir /ulib
 RUN cp -rf /lib/*-linux-*/libsqlite3* /ulib
@@ -32,10 +32,16 @@ RUN cp -rf /lib/*-linux-*/libssl* /ulib
 RUN cp -rf /lib/*-linux-*/libc* /ulib
 RUN cp -rf /lib/*-linux-*/libgcc* /ulib
 RUN cp -rf /lib/*-linux-*/ld* /ulib
+RUN cp -rf /lib/*-linux-*/libpcre* /ulib
+RUN cp -rf /lib/*-linux-*/libuuid* /ulib
+RUN cp -rf /lib/*-linux-*/libidn2* /ulib
+RUN cp -rf /lib/*-linux-*/libpsl* /ulib
+RUN cp -rf /lib/*-linux-*/libunistring* /ulib
 
 FROM busybox:stable-glibc
 #copy all necessary libraries
 COPY --from=deploy-env /ulib/* /lib/
+COPY --from=deploy-env /bin/wget /bin/ 
 COPY --from=build-env /usr/bin/antd /usr/bin/antd
 COPY --from=build-env /usr/lib/libantd* /usr/lib/
 COPY --from=build-env /opt/www /opt/www
