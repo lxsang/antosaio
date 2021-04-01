@@ -1,6 +1,6 @@
 FROM  ubuntu:focal AS build-env
 
-RUN apt-get update &&  DEBIAN_FRONTEND="noninteractive" apt-get --yes --no-install-recommends wget git install build-essential make libsqlite3-dev zlib1g-dev libreadline-dev libssl-dev
+RUN apt-get update &&  DEBIAN_FRONTEND="noninteractive" apt-get --yes --no-install-recommends install  wget git build-essential make libsqlite3-dev zlib1g-dev libreadline-dev libssl-dev
 RUN mkdir /download
 RUN cd /download \
     && wget https://github.com/lxsang/ant-http/raw/master/dist/antd-1.0.6b.tar.gz \
