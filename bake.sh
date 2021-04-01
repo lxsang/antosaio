@@ -24,9 +24,11 @@ if [ ! -d "download" ]; then
     tar xvzf antd-publishers-0.1.0a.tar.gz
     rm antd-publishers-0.1.0a.tar.gz
 
-    git clone --depth 1 https://github.com/lxsang/antd-web-apps
-    git clone  https://github.com/lxsang/antos
-    cd antos && git checkout next-1.2.0 && cd ..
+    git clone --depth 1 https://github.com/lxsang/antd-web-apps y-antd-web-apps
+    wget https://github.com/lxsang/antos/raw/next-1.2.0/release/antos-1.2.0.tar.gz
+    mkdir -p z-antos
+    tar xvzf antos-1.2.0.tar.gz -C z-antos
+    rm antos-1.2.0.tar.gz
     cd ../
 
 fi
