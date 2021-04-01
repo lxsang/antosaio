@@ -1,6 +1,6 @@
 FROM  ubuntu:focal AS build-env
 
-RUN apt-get update &&  DEBIAN_FRONTEND="noninteractive" apt-get --yes --no-install-recommends install  wget git build-essential make libsqlite3-dev zlib1g-dev libreadline-dev libssl-dev
+RUN apt-get update &&  DEBIAN_FRONTEND="noninteractive" apt-get --yes --no-install-recommends install wget build-essential make libsqlite3-dev zlib1g-dev libreadline-dev libssl-dev
 RUN mkdir /download
 RUN cd /download \
     && wget --no-check-certificate https://github.com/lxsang/ant-http/raw/master/dist/antd-1.0.6b.tar.gz \
@@ -10,12 +10,12 @@ RUN cd /download \
 RUN cd /download \
     && wget --no-check-certificate https://github.com/lxsang/antd-lua-plugin/raw/master/dist/lua-0.5.2b.tar.gz \
     && tar xvzf lua-0.5.2b.tar.gz \
-    rm lua-0.5.2b.tar.gz
+    && rm lua-0.5.2b.tar.gz
 
 RUN cd /download \
     && wget --no-check-certificate https://github.com/lxsang/antd-wterm-plugin/raw/master/dist/wterm-1.0.0b.tar.gz \
     && tar xvzf wterm-1.0.0b.tar.gz \
-    rm wterm-1.0.0b.tar.gz
+    && rm wterm-1.0.0b.tar.gz
 
 RUN cd /download \
     && wget --no-check-certificate https://github.com/lxsang/antd-tunnel-plugin/raw/master/dist/tunnel-0.1.0b.tar.gz \
@@ -23,13 +23,16 @@ RUN cd /download \
     && rm tunnel-0.1.0b.tar.gz
 
 RUN cd /download \
-    wget --no-check-certificate https://github.com/lxsang/antd-tunnel-publishers/raw/master/dist/antd-publishers-0.1.0a.tar.gz \
+    && wget --no-check-certificate https://github.com/lxsang/antd-tunnel-publishers/raw/master/dist/antd-publishers-0.1.0a.tar.gz \
     && tar xvzf antd-publishers-0.1.0a.tar.gz \
     && rm antd-publishers-0.1.0a.tar.gz
 
 RUN cd /download \
-    && git clone --depth 1 https://github.com/lxsang/antd-web-apps y-antd-web-apps
-
+    && wget --no-check-certificate https://github.com/lxsang/antd-web-apps/raw/master/dist/antd_web_apps.tar.gz \
+    && mkdir -p  y-antd-web-apps \
+    && tar xvzf antd_web_apps.tar.gz -C y-antd-web-apps \
+    && rm antd_web_apps.tar.gz
+    
 RUN cd /download \
     && wget --no-check-certificate https://github.com/lxsang/antos/raw/next-1.2.0/release/antos-1.2.0.tar.gz \
     && mkdir -p z-antos \
@@ -44,10 +47,9 @@ RUN cd /download/tunnel-0.1.0b && ./configure --prefix=/opt/www  && make && make
 RUN cd /download/antd-publishers-0.1.0a && ./configure --prefix=/opt/www  && make && make install
 
 
-RUN mkdir -p /opt/www/htdocs
-RUN cd /download/y-antd-web-apps && BUILDDIR=/opt/www/htdocs PROJS=os make
-RUN rm /opt/www/htdocs/index.ls
-RUN cp -rf /download/z-antos/* /opt/www/htdocs/os/
+#vRUN mkdir -p /opt/www/htdocs
+# RUN cd /download/y-antd-web-apps && BUILDDIR=/opt/www/htdocs PROJS=os make
+# RUN rm /opt/www/htdocs/index.ls
 #RUN cd /download/antos && npm install terser uglifycss typescript -g && npm install @types/jquery && BUILDDIR=/opt/www/htdocs/os make release
 
 FROM  ubuntu:focal AS deploy-env
@@ -79,6 +81,10 @@ COPY --from=deploy-env /bin/wget /bin/
 COPY --from=build-env /usr/bin/antd /usr/bin/antd
 COPY --from=build-env /usr/lib/libantd* /usr/lib/
 COPY --from=build-env /opt/www /opt/www
+COPY --from=build-env /download/z-antos /opt/www/htdocs/os
+COPY --from=build-env /download/y-antd-web-apps/os /opt/www/htdocs/os
+COPY --from=build-env /download/y-antd-web-apps/silk /opt/www/htdocs/silk
+COPY --from=build-env /download/y-antd-web-apps/mimes.json /opt/www/htdocs/
 COPY start.sh /start.sh
 RUN chmod 700 /start.sh
 ENTRYPOINT /start.sh
