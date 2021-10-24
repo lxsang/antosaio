@@ -55,17 +55,17 @@ RUN cd /download/antd-publishers-0.1.0a && ./configure --prefix=/opt/www  && mak
 
 # download web apps
 RUN cd /download \
-    && wget --no-check-certificate https://github.com/lxsang/antd-web-apps/raw/master/dist/antd_web_apps.tar.gz#nothing3 \
+    && wget --no-check-certificate https://github.com/lxsang/antd-web-apps/raw/master/dist/antd_web_apps.tar.gz#nothing4 \
     && mkdir -p  y-antd-web-apps \
     && tar xvzf antd_web_apps.tar.gz -C y-antd-web-apps \
     && rm antd_web_apps.tar.gz
 
 RUN rm -rf /download/z-antos
 RUN cd /download \
-    && wget --no-check-certificate https://github.com/lxsang/antos/raw/next-1.2.0/release/antos-1.2.0.tar.gz  \
+    && wget --no-check-certificate https://github.com/lxsang/antos/raw/1.2.1/release/antos-1.2.1.tar.gz#refresh2  \
     && mkdir -p z-antos \
-    && tar xvzf antos-1.2.0.tar.gz -C z-antos \
-    && rm antos-1.2.0.tar.gz
+    && tar xvzf antos-1.2.1.tar.gz -C z-antos \
+    && rm antos-1.2.1.tar.gz
 
 FROM busybox:stable-glibc
 #copy all necessary libraries
