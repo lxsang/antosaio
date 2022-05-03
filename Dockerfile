@@ -42,16 +42,16 @@ RUN cd /download \
 RUN cd /download/wterm-1.0.0b && ./configure --prefix=/opt/www  && make && make install
 
 RUN cd /download \
-    && wget --no-check-certificate https://github.com/lxsang/antd-tunnel-plugin/raw/master/dist/tunnel-0.1.0b.tar.gz \
-    && tar xvzf tunnel-0.1.0b.tar.gz \
-    && rm tunnel-0.1.0b.tar.gz
-RUN cd /download/tunnel-0.1.0b && ./configure --prefix=/opt/www  && make && make install
+    && wget --no-check-certificate https://github.com/lxsang/antd-tunnel-plugin/raw/master/dist/tunnel-0.1.3b.tar.gz \
+    && tar xvzf tunnel-0.1.3b.tar.gz \
+    && rm tunnel-0.1.3b.tar.gz
+RUN cd /download/tunnel-0.1.3b && ./configure --prefix=/opt/www  && make && make install
 
 RUN cd /download \
-    && wget --no-check-certificate https://github.com/lxsang/antd-tunnel-publishers/raw/master/dist/antd-publishers-0.1.0a.tar.gz \
-    && tar xvzf antd-publishers-0.1.0a.tar.gz \
-    && rm antd-publishers-0.1.0a.tar.gz
-RUN cd /download/antd-publishers-0.1.0a && ./configure --prefix=/opt/www  && make && make install
+    && wget --no-check-certificate https://github.com/lxsang/antd-tunnel-publishers/raw/master/dist/antd-publishers-0.1.2a.tar.gz \
+    && tar xvzf antd-publishers-0.1.2a.tar.gz \
+    && rm antd-publishers-0.1.2a.tar.gz
+RUN cd /download/antd-publishers-0.1.2a && ./configure --prefix=/opt/www  && make && make install
 
 # download web apps
 RUN cd /download \
